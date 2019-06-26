@@ -1,6 +1,4 @@
-variable AWS_REGION {
-    default = "eu-west-1"
-}
+variable AWS_REGION {}
 variable DNS_ZONE_NAME {}
 variable IS_PRIVATE_ZONE {
     default = true
