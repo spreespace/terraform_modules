@@ -25,3 +25,15 @@ resource "aws_route53_record" "sub_domain" {
         evaluate_target_health = true
     }
 }
+
+
+resource "aws_route53_record" "api_sub_domain" {
+    zone_id = "${data.aws_route53_zone.primary_zone.zone_id}" # Replace with your zone ID
+    name    = "${var.SUBDOMAIN}" # "sub.example.com" # Replace with your name/domain/subdomain
+    type    = "A"
+    alias {
+        name                   = "api-${var.SANDBOX_DNS}"
+        zone_id                = "${data.aws_lb.sandbox_alb.zone_id}"
+        evaluate_target_health = true
+    }
+}
