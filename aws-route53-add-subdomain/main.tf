@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 locals {
-    lb_name = "${replace(var.SANDBOX_DNS, "/(.*?)(-\\d+)(\\..+?\\.elb\\.amazonaws\\.com$)/", "$1")}" 
+    lb_name = "${replace(var.SANDBOX_DNS, "/(.*?)(-\\d+)(\\..+?\\.elb\\.amazonaws\\.com$)/", "$1")}"
 }
 
 data "aws_route53_zone" "primary_zone" {
@@ -17,7 +17,7 @@ data "aws_lb" "sandbox_alb" {
 
 resource "aws_route53_record" "sub_domain" {
     zone_id = "${data.aws_route53_zone.primary_zone.zone_id}" # Replace with your zone ID
-    name    = "${var.SUBDOMAIN}" # "sub.example.com" # Replace with your name/domain/subdomain
+    name    = "www-${var.SUBDOMAIN}" # "sub.example.com" # Replace with your name/domain/subdomain
     type    = "A"
     alias {
         name                   = "${var.SANDBOX_DNS}"
