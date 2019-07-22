@@ -19,7 +19,7 @@ do
         sleep $wait_interval
     else
         # url not exists, exit loop
-        echo "Domain doesnt exist, exiting wait loop"
+        echo "Domain $subdomain.$domain doesnt exist, exiting wait loop."
         break
     fi
 done
