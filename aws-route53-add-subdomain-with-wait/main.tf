@@ -19,14 +19,16 @@ resource "null_resource" "wait_until_www_subdomain_doesnt_exist" {
     provisioner "local-exec" {
         command = "chmod 777 wait_until_subdomain_doesnt_exist.sh && ./wait_until_subdomain_doesnt_exist.sh '${var.DNS_ZONE_NAME}' 'www-${var.SUBDOMAIN}' '${data.aws_route53_zone.primary_zone.zone_id}'"
         interpreter = ["/bin/bash", "-c"]
-  }
+    }
 }
 
 resource "null_resource" "wait_until_api_subdomain_doesnt_exist" {
     provisioner "local-exec" {
         command = "chmod 777 wait_until_subdomain_doesnt_exist.sh && ./wait_until_subdomain_doesnt_exist.sh '${var.DNS_ZONE_NAME}' 'api-${var.SUBDOMAIN}' '${data.aws_route53_zone.primary_zone.zone_id}'"
         interpreter = ["/bin/bash", "-c"]
-  }
+    }
+
+    depends_on = ["null_resource.wait_until_api_subdomain_doesnt_exist"]
 }
 
 resource "aws_route53_record" "sub_domain" {
