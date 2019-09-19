@@ -24,7 +24,7 @@ resource "null_resource" "wait_until_www_subdomain_doesnt_exist" {
 
 resource "null_resource" "wait_until_api_subdomain_doesnt_exist" {
     provisioner "local-exec" {
-        command = "chmod 777 wait_until_subdomain_doesnt_exist.sh && ./wait_until_subdomain_doesnt_exist.sh '${var.DNS_ZONE_NAME}' 'qa-api${var.SUBDOMAIN}' '${data.aws_route53_zone.primary_zone.zone_id}'"
+        command = "chmod 777 wait_until_subdomain_doesnt_exist.sh && ./wait_until_subdomain_doesnt_exist.sh '${var.DNS_ZONE_NAME}' 'qa${var.SUBDOMAIN}-api' '${data.aws_route53_zone.primary_zone.zone_id}'"
         interpreter = ["/bin/bash", "-c"]
     }
 
@@ -46,7 +46,7 @@ resource "aws_route53_record" "sub_domain" {
 
 resource "aws_route53_record" "api_sub_domain" {
     zone_id = "${data.aws_route53_zone.primary_zone.zone_id}"
-    name    = "qa-api${var.SUBDOMAIN}"
+    name    = "qa${var.SUBDOMAIN}-api"
     type    = "A"
     alias {
         name                   = "${var.SANDBOX_DNS}"

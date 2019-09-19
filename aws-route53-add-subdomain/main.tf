@@ -29,7 +29,7 @@ resource "aws_route53_record" "sub_domain" {
 
 resource "aws_route53_record" "api_sub_domain" {
     zone_id = "${data.aws_route53_zone.primary_zone.zone_id}"
-    name    = "qa-api${var.SUBDOMAIN}"
+    name    = "qa${var.SUBDOMAIN}-api"
     type    = "A"
     alias {
         name                   = "${var.SANDBOX_DNS}"
