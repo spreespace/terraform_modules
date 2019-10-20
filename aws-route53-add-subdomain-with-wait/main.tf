@@ -17,7 +17,7 @@ data "aws_lb" "sandbox_alb" {
 
 resource "null_resource" "wait_until_www_subdomain_doesnt_exist" {
     provisioner "local-exec" {
-        command = "chmod 777 wait_until_subdomain_doesnt_exist.sh && ./wait_until_subdomain_doesnt_exist.sh '${var.DNS_ZONE_NAME}' '${var.SUBDOMAIN}' '${data.aws_route53_zone.primary_zone.zone_id}'"
+        command = "chmod 777 wait_until_subdomain_doesnt_exist.sh && ./wait_until_subdomain_doesnt_exist.sh '${var.DNS_ZONE_NAME}' '${var.SUBDOMAIN}-www' '${data.aws_route53_zone.primary_zone.zone_id}'"
         interpreter = ["/bin/bash", "-c"]
     }
 }
@@ -33,7 +33,7 @@ resource "null_resource" "wait_until_api_subdomain_doesnt_exist" {
 
 resource "aws_route53_record" "sub_domain" {
     zone_id = "${data.aws_route53_zone.primary_zone.zone_id}" # Replace with your zone ID
-    name    = "${var.SUBDOMAIN}" # "sub.example.com" # Replace with your name/domain/subdomain
+    name    = "${var.SUBDOMAIN}-www" # "sub.example.com" # Replace with your name/domain/subdomain
     type    = "A"
     alias {
         name                   = "${var.SANDBOX_DNS}"
