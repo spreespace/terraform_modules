@@ -31,7 +31,7 @@ resource "null_resource" "wait_until_api_subdomain_doesnt_exist" {
 
 resource "aws_route53_record" "sub_domain" {
     zone_id = "${data.aws_route53_zone.primary_zone.zone_id}" # Replace with your zone ID
-    name    = "${var.SUBDOMAIN}-colony" # "sub.example.com" # Replace with your name/domain/subdomain
+    name    = "${var.SUBDOMAIN}-colony-admin" # "sub.example.com" # Replace with your name/domain/subdomain
     type    = "A"
     alias {
         name                   = "${var.SANDBOX_DNS}"
