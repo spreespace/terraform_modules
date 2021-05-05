@@ -1,7 +1,7 @@
 #!/bin/bash
 apt-get install jq -y
 
-timeout=600
+timeout=900
 wait_interval=5
 domain="$1"
 subdomain="$2"
