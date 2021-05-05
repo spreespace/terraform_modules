@@ -21,11 +21,12 @@ do
         let remaining=$timeout-$c
         echo "Domain $subdomain.$domain exists, sleeping for $wait_interval. Remaining timeout is $remaining seconds."
         unset status  # reset the $status var
-        
-        break
+
+        sleep $wait_interval
+
     else
         # url not exists, exit loop
         echo "Domain $subdomain.$domain doesnt exist, exiting wait loop."
-        sleep $wait_interval
+        break
     fi
 done
