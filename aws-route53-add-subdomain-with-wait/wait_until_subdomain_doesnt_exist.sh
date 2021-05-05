@@ -22,10 +22,10 @@ do
         echo "Domain $subdomain.$domain exists, sleeping for $wait_interval. Remaining timeout is $remaining seconds."
         unset status  # reset the $status var
         
-        sleep $wait_interval
+        break
     else
         # url not exists, exit loop
         echo "Domain $subdomain.$domain doesnt exist, exiting wait loop."
-        break
+        sleep $wait_interval
     fi
 done
