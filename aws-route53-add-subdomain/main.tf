@@ -17,23 +17,24 @@ data "aws_lb" "sandbox_alb" {
 
 resource "aws_route53_record" "sub_domain" {
     zone_id = "${data.aws_route53_zone.primary_zone.zone_id}" # Replace with your zone ID
-    name    = "qa${var.SUBDOMAIN}" # "sub.example.com" # Replace with your name/domain/subdomain
+    name    = "${var.SUBDOMAIN}-colony-www" # "sub.example.com" # Replace with your name/domain/subdomain
     type    = "A"
     alias {
         name                   = "${var.SANDBOX_DNS}"
         zone_id                = "${data.aws_lb.sandbox_alb.zone_id}"
         evaluate_target_health = true
     }
-}
 
+}
 
 resource "aws_route53_record" "api_sub_domain" {
     zone_id = "${data.aws_route53_zone.primary_zone.zone_id}"
-    name    = "qa${var.SUBDOMAIN}-api"
+    name    = "${var.SUBDOMAIN}-colony-api"
     type    = "A"
     alias {
         name                   = "${var.SANDBOX_DNS}"
         zone_id                = "${data.aws_lb.sandbox_alb.zone_id}"
         evaluate_target_health = true
     }
+
 }
